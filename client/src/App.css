@@ -1,28 +1,25 @@
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-.appBar {
-    border-radius: 15px;
-    margin: 30px 100px;
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: center;
-    align-items: center;
-    width: 600px !important;
-    border: 2px solid black;
-}
-
-.app_options{
+.App {
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .video-container {
     display: flex;
     justify-content: center;
-}
-
-@media (max-width: 0px) {
-    .appBar {
-        width: 90%;
-    }
-}
+    margin-bottom: 20px;
+  }
+  
+  .my-video,
+  .partner-video {
+    width: 400px;
+    height: 300px;
+    margin: 0 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .call-button {
+    font-size: 18px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
