@@ -1,43 +1,15 @@
 const express = require('express');
 const http = require('http');
-const cors = require('cors');
+const { ExpressPeerServer } = require('peer');
 
 const app = express();
 const server = http.createServer(app);
-const io = require('socket.io')(server, {
-    cors: {
-        origin: "http://localhost:3000",
-        methods: ["GET", "POST"]
-    }
+const peerServer = ExpressPeerServer(server, {
+  debug: true,
 });
 
-app.use(cors());
+app.use('/peerjs', peerServer);
 
-
-
-app.get('/', (req, res) => {
-    res.send('Welcome to HomePage');
+server.listen(5000, () => {
+  console.log('Server is running on port 5000');
 });
-
-io.on('connection', (socket) => {
-
-    socket.emit('me', socket.id);
-    // console.log(socket.id);
-
-    socket.on('disconnect', (socket) => {
-        console.log(socket);
-    });
-
-    socket.on('calluser', ({ userToCall, signalData, from, name }) => {
-        io.to(userToCall).emit('calluser', { signal: signalData, from, name })
-    });
-
-    socket.on('answercall', (data) => {
-        io.to(data.to).emit('callaccepted', data.signal);
-    });
-});
-
-const port = process.env.PORT || 5050;
-server.listen(port, () => {
-    console.log(`Server is running at: http://localhost:${port}/`)
-})
