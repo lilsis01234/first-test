@@ -1,15 +1,19 @@
-const app = require('express')();
-const server = require('http').createServer(app);
+const express = require('express');
+const http = require('http');
 const cors = require('cors');
 
+const app = express();
+const server = http.createServer(app);
 const io = require('socket.io')(server, {
     cors: {
-        origin: '*',
-        method: ['GET', 'POST']
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"]
     }
 });
 
 app.use(cors());
+
+
 
 app.get('/', (req, res) => {
     res.send('Welcome to HomePage');
